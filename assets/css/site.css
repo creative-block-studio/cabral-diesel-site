@@ -130,7 +130,9 @@ p{margin:0 0 1em;max-width:62ch;text-wrap:pretty;color:var(--texto)}
 .map.drawn .map-route{stroke-dashoffset:0}
 .map.drawn .map-label{opacity:1}
 .map.drawn .map-city{scale:1}
-.about .code{margin-top:8px}
+.about .address{margin-top:8px;font:500 1.25rem/1.45 "Space Grotesk",sans-serif;color:var(--branco)}
+.about .address a{text-decoration:none;border-bottom:1px solid var(--vermelho)}
+.about .address a:hover{color:var(--vermelho)}
 
 .faq details{border-top:1px solid var(--linha);padding:18px 0}
 .faq{display:grid;grid-template-columns:1fr 1fr;column-gap:64px;align-items:start;margin-top:40px}
