@@ -1,7 +1,7 @@
 // Bico injetor 3D: peças de revolução (torno) montadas no eixo; --p do hero (site.js) explode e gira.
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { buildInjector } from './injector-model.js?v=10';
+import { buildInjector } from './injector-model.js?v=12';
 
 const hero = document.querySelector('.hero');
 const box = document.querySelector('.injector-3d');

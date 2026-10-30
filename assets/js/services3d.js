@@ -1,7 +1,7 @@
 // Serviços: bico e bomba em desenho de linhas que giram e desmontam com o scroll, com o nome de cada peça.
 // Só no desktop: no celular a seção não fica presa e a ficha de testes basta.
 import * as THREE from 'three';
-import { buildInjector } from './injector-model.js?v=10';
+import { buildInjector } from './injector-model.js?v=12';
 
 const sec = document.querySelector('.services');
 const box = document.querySelector('.svc-3d');
