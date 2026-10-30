@@ -161,8 +161,8 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--branco);outline-of
   .hero .tag{display:none}
   /* no celular a peça fica em pé atrás de todo o texto; apagada para não brigar com a leitura */
   .hero-in>.injector-3d{opacity:.5}
-  /* celular: peça grande ocupa a tela atrás; texto encosta embaixo, sem vão no topo */
-  .hero-in{justify-content:flex-end;padding:88px 0 32px}
+  /* celular: texto segue o fluxo logo abaixo da navbar; a peça é só fundo, sem reservar espaço */
+  .hero-in{justify-content:flex-start;padding:112px 0 32px}
   .hero h1{font-size:clamp(3rem,13vw,4.5rem)}
   .hero-foot{flex-direction:column;align-items:flex-start}
   .spec{grid-template-columns:1fr}
