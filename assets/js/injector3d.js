@@ -1,100 +1,59 @@
 // Bico injetor 3D: peças de revolução (torno) montadas no eixo; --p do hero (site.js) explode e gira.
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { buildInjector } from './injector-model.js?v=10';
 
 const hero = document.querySelector('.hero');
 const box = document.querySelector('.injector-3d');
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const touch = matchMedia('(pointer: coarse)').matches;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: touch ? 'low-power' : 'default' });
+// celular: menos pixels = menos memória de GPU, o que evita o navegador derrubar o contexto WebGL
+renderer.setPixelRatio(Math.min(devicePixelRatio, touch ? 1.5 : 2));
 box.appendChild(renderer.domElement);
+// realismo: tone mapping de cinema e exposição um pouco acima
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
 
 const scene = new THREE.Scene();
 // metal só aparece com algo para refletir: ambiente de estúdio gerado, sem baixar HDR
-scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
+const makeEnv = () => { scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture; };
+makeEnv();
 const camera = new THREE.PerspectiveCamera(28, 1, 1, 1000);
-const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(30, 60, 80); scene.add(key);
-const rim = new THREE.DirectionalLight(0xf9230e, .6); rim.position.set(-60, -30, -40); scene.add(rim);
+scene.environmentIntensity = 1.2;
+const key = new THREE.DirectionalLight(0xfff4e8, 2.2); key.position.set(30, 60, 80); scene.add(key);
+const fill = new THREE.DirectionalLight(0xdfe8ff, .5); fill.position.set(-50, 10, 40); scene.add(fill);
+const rim = new THREE.DirectionalLight(0xf9230e, 1.1); rim.position.set(-60, -30, -40); scene.add(rim);
 
-// materiais de bancada: aço usinado, corpo fundido (mais fosco), plástico do conector, borracha e cobre
-const steel = new THREE.MeshStandardMaterial({ color: 0xd0d0cf, metalness: .95, roughness: .22 });
-const cast = new THREE.MeshStandardMaterial({ color: 0x77736e, metalness: .85, roughness: .55 });
-const plastic = new THREE.MeshStandardMaterial({ color: 0x161616, metalness: 0, roughness: .55 });
-const rubber = new THREE.MeshStandardMaterial({ color: 0x0c0c0c, metalness: 0, roughness: .8 });
-const copper = new THREE.MeshStandardMaterial({ color: 0xc27a45, metalness: 1, roughness: .3 });
-const line = new THREE.LineBasicMaterial({ color: 0xd4d4d3, transparent: true, opacity: .12 });
-
-// perfil [raio, y] girado em torno do eixo Y; y é o comprimento da peça (conector em -y, ponta em +y)
-const lathe = pts => new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), 64);
-const mesh = (geo, mat, edges = false) => {
-  const m = new THREE.Mesh(geo, mat);
-  if (edges) m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 24), line));
-  return m;
+// realismo: texturas geradas em canvas (sem baixar imagem)
+// aço torneado = riscos finos ao redor da peça; fundido = granulado irregular
+const tex = (draw, repeat) => {
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  draw(c.getContext('2d'));
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...repeat);
+  return t;
 };
-const ring = (r, tube, y, mat = rubber) => {
-  const m = mesh(new THREE.TorusGeometry(r, tube, 12, 64), mat);
-  m.rotation.x = Math.PI / 2; m.position.y = y;
-  return m;
-};
-// rosca: perfil em dente de serra ao longo do eixo
-const thread = (r, len) => lathe([[0, 0], ...Array.from({ length: Math.round(len / .35) }, (_, i) => [[r, i * .35], [r + .2, i * .35 + .17]]).flat(), [r, len], [0, len]]);
+const lathed = tex(g => {
+  g.fillStyle = '#7a7a7a'; g.fillRect(0, 0, 256, 256);
+  for (let y = 0; y < 256; y++) { g.fillStyle = `rgba(${Math.random() < .5 ? '255,255,255' : '0,0,0'},${Math.random() * .22})`; g.fillRect(0, y, 256, 1); }
+}, [1, 6]);
+const grain = tex(g => {
+  const d = g.createImageData(256, 256);
+  for (let i = 0; i < d.data.length; i += 4) { const v = 110 + Math.random() * 90; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0);
+}, [3, 3]);
 
-// cada peça: [objeto, deslocamento na explosão]; ordem de bancada: cabeça, corpo, internos, porca, bico
-const parts = [];
-const add = (obj, dy) => { parts.push([obj, dy]); return obj; };
-
-// cabeça: conector plástico do solenoide + capa + porca sextavada
-const head = new THREE.Group();
-const plug = mesh(new THREE.BoxGeometry(5.6, 6, 6.4), plastic); plug.position.set(.6, -37, 0); head.add(plug);
-const socket = mesh(new THREE.BoxGeometry(3.8, 4, 1), rubber); socket.position.set(.6, -37.4, 3.3); head.add(socket);
-const latch = mesh(new THREE.BoxGeometry(2.2, 1.2, 2.4), plastic); latch.position.set(.6, -40.4, 1.6); head.add(latch);
-head.add(mesh(lathe([[0, -34], [3.1, -34], [3.6, -33.4], [3.6, -29.6], [3.1, -29], [0, -29]]), steel));
-head.add(mesh(new THREE.CylinderGeometry(4.3, 4.3, 4, 6).translate(0, -27, 0), steel, true));
-add(head, -24);
-
-// corpo fundido com colar, entrada de alta pressão em ângulo e retorno
-const body = new THREE.Group();
-body.add(mesh(lathe([[0, -25], [3.4, -25], [3.4, -21.5], [4, -21], [4, -15], [3.4, -14.5],
-  [3.4, -3], [3.6, -2.6], [3.6, 4], [0, 4]]), cast, true));
-body.add(ring(3.45, .35, -9), ring(3.45, .35, -6));
-const inlet = new THREE.Group();
-inlet.add(mesh(new THREE.CylinderGeometry(2, 2.2, 3, 32).translate(0, 1.5, 0), cast));
-inlet.add(mesh(new THREE.CylinderGeometry(2.3, 2.3, 2, 6).translate(0, 3.8, 0), steel, true));
-inlet.add(mesh(thread(1.3, 4.5).translate(0, 4.8, 0), steel));
-inlet.position.set(3.2, -18, 0);
-inlet.rotation.z = -(Math.PI / 2 + .45); // sai pelo lado, inclinada para o conector
-body.add(inlet);
-const leak = mesh(new THREE.CylinderGeometry(.8, .8, 2.6, 24), steel);
-leak.rotation.z = Math.PI / 2; leak.position.set(-4.2, -23, 0); body.add(leak);
-add(body, -12);
-
-// internos (escondidos quando montado): haste da válvula, mola e placa intermediária
-const internals = new THREE.Group();
-internals.add(mesh(new THREE.CylinderGeometry(.55, .55, 7, 24).translate(0, 1.5, 0), cast));
-const helix = new THREE.CatmullRomCurve3(Array.from({ length: 160 }, (_, i) => {
-  const t = i / 159, a = t * Math.PI * 2 * 7;
-  return new THREE.Vector3(Math.cos(a) * 1.6, -.5 + t * 6, Math.sin(a) * 1.6);
-}));
-internals.add(mesh(new THREE.TubeGeometry(helix, 320, .22, 8), steel));
-internals.add(mesh(new THREE.CylinderGeometry(2.5, 2.5, .9, 48).translate(0, 6.6, 0), steel));
-add(internals, 0);
-
-// porca do bico com o-ring
-const nut = new THREE.Group();
-nut.add(mesh(lathe([[0, 4], [3.5, 4], [3.5, 13], [3.25, 13.4], [3.25, 15], [2.2, 18], [2.2, 20], [0, 20]]), steel, true));
-nut.add(ring(3.5, .38, 9.5));
-add(nut, 12);
-
-// bico: corpo (dentro da porca), haste curta, ponta arredondada e arruela de cobre
-const nozzle = new THREE.Group();
-nozzle.add(mesh(lathe([[0, 7.5], [2.4, 7.5], [2.4, 17], [1.6, 17.5], [1.3, 20.5], [1.2, 25],
-  [.9, 26.5], [.7, 27.5], [.35, 28.2], [0, 28.5]]), steel));
-nozzle.add(mesh(lathe([[1.3, 20], [2.6, 20], [2.6, 20.7], [1.3, 20.7], [1.3, 20]]), copper));
-add(nozzle, 22);
+const steel = new THREE.MeshPhysicalMaterial({ color: 0xcfd0d2, metalness: 1, roughness: .3, roughnessMap: lathed, bumpMap: lathed, bumpScale: .015 });
+const cast = new THREE.MeshPhysicalMaterial({ color: 0x6f6b66, metalness: .9, roughness: .62, roughnessMap: grain, bumpMap: grain, bumpScale: .05 });
+const plastic = new THREE.MeshPhysicalMaterial({ color: 0x121212, metalness: 0, roughness: .42, clearcoat: .35, clearcoatRoughness: .5 });
+const rubber = new THREE.MeshPhysicalMaterial({ color: 0x0a0a0a, metalness: 0, roughness: .85, sheen: .3, sheenColor: 0x222222 });
+const copper = new THREE.MeshPhysicalMaterial({ color: 0xc8804c, metalness: 1, roughness: .28, roughnessMap: lathed });
+const parts = buildInjector({ steel, cast, plastic, rubber, copper });
 
 // inner gira no próprio eixo; outer deita a peça e dá a vista 3/4
 const inner = new THREE.Group();
-parts.forEach(([o]) => { o.position.y += 6; o.userData.y = o.position.y; inner.add(o); }); // +6 centraliza a peça (-41..28.5) no eixo
+parts.forEach(([o]) => inner.add(o));
 const outer = new THREE.Group();
 outer.add(inner);
 outer.rotation.set(.25, -.35, -Math.PI / 2);
@@ -113,13 +72,13 @@ const fit = () => {
   const portrait = innerHeight > innerWidth;
   outer.rotation.z = portrait ? Math.PI : -Math.PI / 2;
   // tela deitada: diagonal subindo da ponta (embaixo, esquerda) ao conector (em cima, direita)
-  const tilt = portrait ? .18 : .3;
+  const tilt = portrait ? .18 : .72;
   mirror.rotation.z = tilt;
   const vhalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   // canvas ocupa a tela toda (nada corta); a peça vive numa faixa à direita: começa em 38% e vai até a borda
   const span = portrait ? 1 : .66, center = portrait ? .5 : .68;
-  const half = portrait ? 44 : 44; // meia-peça explodida, em unidades da cena
-  spread = portrait ? .45 : .6; // peça grande no desktop: explosão mais curta para caber
+  const half = portrait ? 44 : 60; // meia-peça explodida, em unidades da cena
+  spread = portrait ? .45 : .42; // peça grande no desktop: explosão mais curta para caber
   // deitada: comprimento na horizontal; em pé: comprimento na vertical
   const along = half * Math.cos(tilt), across = half * Math.sin(tilt);
   const d = portrait
@@ -127,11 +86,13 @@ const fit = () => {
     : Math.max(along / (vhalf * camera.aspect * span), across / vhalf);
   mirror.position.x = (center - .5) * 2 * d * vhalf * camera.aspect;
   // câmera um pouco abaixo = peça um pouco acima, longe do parágrafo
-  camera.position.set(0, portrait ? 0 : -.3 * d * vhalf, d);
+  camera.position.set(0, portrait ? 0 : -.12 * d * vhalf, d);
   camera.updateProjectionMatrix();
 };
 
+let visible = true, lost = false;
 const render = () => {
+  if (!visible || lost) return; // fora da tela ou sem GPU: não desenha
   const p = parseFloat(getComputedStyle(hero).getPropertyValue('--p')) || 0;
   parts.forEach(([o, dy]) => { o.position.y = o.userData.y + p * dy * spread; });
   inner.rotation.y = p * Math.PI * 1.2;
@@ -141,5 +102,28 @@ const render = () => {
 let queued = false;
 const frame = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; render(); }); } };
 addEventListener('scroll', frame, { passive: true });
-new ResizeObserver(() => { fit(); render(); }).observe(box);
+// barra de endereço do celular muda a altura ao rolar; só refaz o tamanho em mudança real
+let lastW = 0, lastH = 0;
+new ResizeObserver(() => {
+  const w = box.clientWidth, h = box.clientHeight;
+  if (w === lastW && Math.abs(h - lastH) < 160) return;
+  lastW = w; lastH = h; fit(); render();
+}).observe(box);
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) frame(); }).observe(hero);
+
+// se o navegador derrubar o WebGL (falta de memória no celular), reconstrói ao voltar; sem volta, mostra o SVG
+const canvas = renderer.domElement;
+let fallback;
+canvas.addEventListener('webglcontextlost', e => {
+  e.preventDefault();
+  lost = true;
+  fallback = setTimeout(() => hero.classList.remove('has-3d'), 1500);
+});
+canvas.addEventListener('webglcontextrestored', () => {
+  clearTimeout(fallback);
+  lost = false;
+  makeEnv();
+  hero.classList.add('has-3d');
+  fit(); render();
+});
 hero.classList.add('has-3d');

@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/site.css?v=10">
   <!-- TODO: adicionar address/openingHours quando tiver os dados reais -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Cabral Diesel","description":"Recuperação de bombas e bicos injetores diesel com teste em bancada.","telephone":"+55 11 99446-9964","areaServed":"BR","address":{"@type":"PostalAddress","addressLocality":"Itaquaquecetuba","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.instagram.com/lmcabraldiesel/"]}</script>
 </head>
@@ -116,30 +116,38 @@
       </div>
     </section>
 
-    <section class="section alt" id="servicos">
-      <div class="wrap">
-        <h2>Só bomba e bico. <span class="muted">Por isso bem feito.</span></h2>
-        <div class="specs">
-          <article class="spec">
-            <img src="assets/img/bicos.webp" width="1400" height="933" alt="Três bicos injetores common rail recuperados na bancada, ao lado da caixa Cabral Diesel" loading="lazy" decoding="async">
-            <div>
-              <p class="code">BI-01</p>
+    <!-- Serviços: bancada de teste presa na tela; ao rolar, cada serviço entra e sua ficha de testes é preenchida linha a linha -->
+    <section class="services" id="servicos">
+      <div class="svc-stage">
+        <div class="wrap svc-in">
+          <div class="svc-3d" aria-hidden="true"></div>
+          <div class="svc-labels" aria-hidden="true"></div>
+          <div class="svc-list">
+            <article class="svc active" data-n="01">
               <h3>Bicos injetores</h3>
               <p>Avaliação, recuperação e teste. Common rail e mecânicos, linha leve e pesada.</p>
-              <ul class="checks"><li>Vazão</li><li>Vedação</li><li>Pulverização</li></ul>
-            </div>
-          </article>
-          <article class="spec">
-            <img src="assets/img/bomba.webp" width="1400" height="933" alt="Bomba de alta pressão sendo inspecionada na bancada" loading="lazy" decoding="async">
-            <div>
-              <p class="code">BI-02</p>
+              <ol class="svc-tests">
+                <li class="svc-head"><span>Nº</span><b>Teste</b><i></i><em>Bancada</em></li>
+                <li style="--r:0"><span>01.</span><b>Vazão</b><i></i><em>Medido</em></li>
+                <li style="--r:1"><span>02.</span><b>Vedação</b><i></i><em>Medido</em></li>
+                <li style="--r:2"><span>03.</span><b>Pulverização</b><i></i><em>Medido</em></li>
+                <li style="--r:3"><span>04.</span><b>Retorno</b><i></i><em>Medido</em></li>
+              </ol>
+            </article>
+            <article class="svc" data-n="02">
               <h3>Bombas injetoras e de alta</h3>
               <p>Recuperação com controle de pressão e calibração em bancada.</p>
-              <ul class="checks"><li>Pressão</li><li>Calibração</li><li>Débito</li></ul>
-            </div>
-          </article>
+              <ol class="svc-tests">
+                <li class="svc-head"><span>Nº</span><b>Teste</b><i></i><em>Bancada</em></li>
+                <li style="--r:0"><span>01.</span><b>Pressão</b><i></i><em>Medido</em></li>
+                <li style="--r:1"><span>02.</span><b>Calibração</b><i></i><em>Medido</em></li>
+                <li style="--r:2"><span>03.</span><b>Débito</b><i></i><em>Medido</em></li>
+                <li style="--r:3"><span>04.</span><b>Vedação</b><i></i><em>Medido</em></li>
+              </ol>
+            </article>
+          </div>
+          <p class="applications">Picapes · Vans e utilitários · Caminhões · Frotas · Máquinas agrícolas</p>
         </div>
-        <p class="applications">Picapes · Vans e utilitários · Caminhões · Frotas · Máquinas agrícolas</p>
       </div>
     </section>
 
@@ -156,11 +164,15 @@
 
     <section class="section alt" id="oficina">
       <div class="wrap two-col about">
-        <figure><img src="assets/img/fachada.webp" width="1000" height="666" alt="Fachada da oficina Cabral Diesel" loading="lazy"></figure>
+        <!-- mapa de linhas: distâncias aproximadas, escala logarítmica para caber o perto e o longe -->
+        <svg class="map" viewBox="0 0 600 600" role="img" aria-label="Mapa: Cabral Diesel em Itaquaquecetuba, SP, recebendo peças de São Paulo, interior e outros estados"><g class="map-grid"><path d="M0 0V600M0 0H600"/><path d="M50 0V600M0 50H600"/><path d="M100 0V600M0 100H600"/><path d="M150 0V600M0 150H600"/><path d="M200 0V600M0 200H600"/><path d="M250 0V600M0 250H600"/><path d="M300 0V600M0 300H600"/><path d="M350 0V600M0 350H600"/><path d="M400 0V600M0 400H600"/><path d="M450 0V600M0 450H600"/><path d="M500 0V600M0 500H600"/><path d="M550 0V600M0 550H600"/><path d="M600 0V600M0 600H600"/></g><circle class="map-ring" cx="300" cy="300" r="111.4"/><text class="map-km" x="304" y="182.6">50 km</text><circle class="map-ring" cx="300" cy="300" r="178.2"/><text class="map-km" x="304" y="115.8">150 km</text><circle class="map-ring" cx="300" cy="300" r="251.4"/><text class="map-km" x="304" y="42.6">500 km</text><path class="map-route" style="--i:0" pathLength="1" d="M300 300Q259.4 322.0 213.3 323.2"/><circle class="map-city" style="--i:0" cx="213.3" cy="323.2" r="3.5"/><text class="map-label" style="--i:0" x="203.3" y="327.2" text-anchor="end">São Paulo</text><path class="map-route" style="--i:1" pathLength="1" d="M300 300Q275.7 292.8 257.3 275.3"/><circle class="map-city" style="--i:1" cx="257.3" cy="275.3" r="3.5"/><text class="map-label" style="--i:1" x="247.3" y="279.3" text-anchor="end">Guarulhos</text><path class="map-route" style="--i:2" pathLength="1" d="M300 300Q328.3 295.8 355.5 304.9"/><circle class="map-city" style="--i:2" cx="355.5" cy="304.9" r="3.5"/><text class="map-label" style="--i:2" x="365.5" y="308.9" text-anchor="start">Mogi das Cruzes</text><path class="map-route" style="--i:3" pathLength="1" d="M300 300Q223.0 264.9 170.3 198.6"/><circle class="map-city" style="--i:3" cx="170.3" cy="198.6" r="3.5"/><text class="map-label" style="--i:3" x="160.3" y="202.6" text-anchor="end">Campinas</text><path class="map-route" style="--i:4" pathLength="1" d="M300 300Q298.1 373.9 262.8 438.8"/><circle class="map-city" style="--i:4" cx="262.8" cy="438.8" r="3.5"/><text class="map-label" style="--i:4" x="252.8" y="442.8" text-anchor="end">Santos</text><path class="map-route" style="--i:5" pathLength="1" d="M300 300Q350.8 255.1 416.4 238.1"/><circle class="map-city" style="--i:5" cx="416.4" cy="238.1" r="3.5"/><text class="map-label" style="--i:5" x="426.4" y="242.1" text-anchor="start">S. J. dos Campos</text><path class="map-route" style="--i:6" pathLength="1" d="M300 300Q402.9 236.9 523.2 227.5"/><circle class="map-city" style="--i:6" cx="523.2" cy="227.5" r="3.5"/><text class="map-label" style="--i:6" x="533.2" y="231.5" text-anchor="start">Rio de Janeiro</text><path class="map-route" style="--i:7" pathLength="1" d="M300 300Q310.4 167.6 379.8 54.3"/><circle class="map-city" style="--i:7" cx="379.8" cy="54.3" r="3.5"/><text class="map-label" style="--i:7" x="389.8" y="58.3" text-anchor="start">Belo Horizonte</text><path class="map-route" style="--i:8" pathLength="1" d="M300 300Q223.9 395.7 112.6 446.4"/><circle class="map-city" style="--i:8" cx="112.6" cy="446.4" r="3.5"/><text class="map-label" style="--i:8" x="102.6" y="450.4" text-anchor="end">Curitiba</text><circle class="map-pulse" cx="300" cy="300" r="10"/><circle class="map-home" cx="300" cy="300" r="6"/></svg>
         <div>
           <h2>Precisão de bancada. Confiança de família.</h2>
           <!-- TODO: história real da oficina (desde quando, quem fundou) -->
           <p>A Cabral Diesel é uma oficina de família, com [X] anos de trabalho em injeção diesel. Atendemos mecânicos, frotistas e motoristas que não podem ficar parados.</p>
+          <p>Recebemos peças de oficinas e frotas de todo o Brasil.</p>
+          <!-- TODO: endereço real -->
+          <p class="code">[Rua, número · Bairro] · Itaquaquecetuba – SP</p>
         </div>
       </div>
     </section>
@@ -168,7 +180,7 @@
     <!-- TODO: liberar quando tiver depoimentos reais (Google, WhatsApp) -->
 
     <section class="section" id="duvidas">
-      <div class="wrap two-col">
+      <div class="wrap">
         <h2>Dúvidas comuns</h2>
         <div class="faq">
           <details open><summary>Vocês fazem o diagnóstico do veículo inteiro?</summary><p>Nosso trabalho é bomba e bico. Se a leitura da oficina ou do scanner apontar falha na injeção, traga ou envie a peça para avaliação.</p></details>
@@ -203,8 +215,9 @@
     </div>
   </footer>
 
-  <script src="assets/js/site.js"></script>
+  <script src="assets/js/site.js?v=10"></script>
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-  <script type="module" src="assets/js/injector3d.js"></script>
+  <script type="module" src="assets/js/injector3d.js?v=10"></script>
+  <script type="module" src="assets/js/services3d.js?v=10"></script>
 </body>
 </html>

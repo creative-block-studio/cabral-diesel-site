@@ -17,7 +17,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
 // motion leve: textos, listas e botões aparecem ao entrar na tela; irmãos entram em cascata (--i)
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-  const els = document.querySelectorAll('.hero .tag, .hero h1, .hero-foot > *, .section h2, .two-col > p, .symptoms-intro > p, .symptoms-intro > .btn, .readout li, .spec, .applications, .sheet li, .about > div > *, .faq details, .contact h2, .contact p, .contact .btn, .info');
+  const els = document.querySelectorAll('.hero .tag, .hero h1, .hero-foot > *, .section h2, .two-col > p, .symptoms-intro > p, .symptoms-intro > .btn, .readout li, .applications, .sheet li, .about > div > *, .faq details, .contact h2, .contact p, .contact .btn, .info');
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (!e.isIntersecting) return;
     const el = e.target;
@@ -42,3 +42,22 @@ addEventListener('scroll', () => {
   header.classList.toggle('hide', y > lastY && y > 120);
   lastY = y;
 }, { passive: true });
+
+// serviços: a posição no trilho escolhe o serviço ativo; as linhas animam em CSS ao ativar
+const svcSec = document.querySelector('.services');
+const svcs = [...document.querySelectorAll('.svc')];
+const pinned = matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)');
+const pickSvc = () => {
+  if (!pinned.matches) { svcs.forEach(s => s.classList.add('active')); return; }
+  const r = svcSec.getBoundingClientRect();
+  const t = Math.min(Math.max(-r.top / (r.height - innerHeight), 0), .999);
+  const i = Math.floor(t * svcs.length);
+  svcs.forEach((s, k) => s.classList.toggle('active', k === i));
+};
+addEventListener('scroll', pickSvc, { passive: true });
+addEventListener('resize', pickSvc);
+pickSvc();
+
+// mapa: rotas se desenham quando a seção entra na tela
+const map = document.querySelector('.map');
+if (map) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { map.classList.add('drawn'); o.disconnect(); } }, { threshold: .3 }).observe(map);
