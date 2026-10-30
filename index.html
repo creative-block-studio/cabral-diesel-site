@@ -10,108 +10,164 @@
   <meta name="description" content="Cabral Diesel, Itaquaquecetuba – SP: recuperação de bombas e bicos injetores diesel, com teste em bancada. Linha leve, pesada e agrícola.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Cabral Diesel — Bombas e Bicos Injetores">
-  <meta property="og:description" content="Injeção de confiança para quem move o Brasil.">
+  <meta property="og:description" content="A força vem de dentro.">
   <meta property="og:image" content="assets/img/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>Cabral Diesel — Bombas e Bicos Injetores</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
+  <!-- TODO: adicionar address/openingHours quando tiver os dados reais -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Cabral Diesel","description":"Recuperação de bombas e bicos injetores diesel com teste em bancada.","telephone":"+55 11 99446-9964","areaServed":"BR","address":{"@type":"PostalAddress","addressLocality":"Itaquaquecetuba","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.instagram.com/lmcabraldiesel/"]}</script>
 </head>
 <body>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   <header class="header">
     <div class="wrap header-in">
-      <a href="#inicio" class="logo"><img src="assets/img/logo.webp" alt="Cabral Diesel" width="81" height="36"></a>
+      <a href="#inicio" class="logo"><img src="assets/img/logo-cd.webp" alt="Cabral Diesel" width="127" height="36"></a>
       <nav aria-label="Navegação principal">
         <a href="#servicos">Serviços</a>
-        <a href="#oficina">A oficina</a>
+        <a href="#bancada">Bancada</a>
         <a href="#duvidas">Dúvidas</a>
-        <a href="#contato">Contato</a>
       </nav>
-      <a class="header-wa" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!" target="_blank" rel="noreferrer">WhatsApp</a>
+      <a class="header-wa" href="#contato">Contato</a>
     </div>
   </header>
 
   <main id="conteudo">
+    <!-- Conceito: "a força vem de dentro". O site abre a peça: corte técnico, leitura térmica, ficha de bancada. -->
     <section class="hero" id="inicio">
-      <img class="hero-bg" src="assets/img/hero.webp" alt="" width="1536" height="1024" fetchpriority="high">
       <div class="wrap hero-in">
-        <h1>A força vem de dentro.</h1>
-        <p>Recuperamos bombas e bicos injetores para quem depende do diesel todo dia. Cada peça é testada em bancada antes de voltar para o motor.</p>
-        <div class="hero-actions">
-          <a class="btn" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noreferrer">Pedir orçamento no WhatsApp</a>
-          <a class="link" href="#servicos">Ver serviços</a>
+        <p class="tag">Bombas e bicos injetores · Itaquaquecetuba – SP</p>
+        <h1>A força vem<br><span>de dentro.</span></h1>
+        <!-- Bico injetor em blueprint: cada <g class="part"> desliza no eixo por --dx × --p; --p vem do scroll (site.js). Cotas somem ao desmontar. -->
+        <div class="injector-3d" aria-hidden="true"></div>
+        <svg class="injector" viewBox="-250 -100 1290 170" aria-hidden="true">
+          <defs>
+            <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v5"/></pattern>
+            <pattern id="knurl" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 0v4"/></pattern>
+          </defs>
+          <path class="axis" d="M-30 0h850"/>
+          <g class="dim">
+            <path d="M0-82h782M0-88v52M782-88v84M-4-82h8M778-82h8"/>
+            <path d="M-26-40v80M-32-40h12M-32 40h12M-26-34l-3 8h6zM-26 34l-3-8h6z"/>
+            <path d="M800-14v28M794-14h12M794 14h12"/>
+          </g>
+          <g class="part" style="--dx:-190">
+            <rect x="0" y="-36" width="54" height="50" rx="4"/>
+            <rect x="8" y="-28" width="38" height="22" rx="2"/>
+            <path d="M16-28v-8M27-28v-8M38-28v-8M8 4h38"/>
+            <rect class="fine" x="54" y="-16" width="20" height="32"/>
+          </g>
+          <g class="part" style="--dx:-130">
+            <path d="M74-40h54l6 6v68l-6 6H74l-6-6v-68z"/>
+            <path class="fine" d="M68-22h66M68 22h66M101-40v80"/>
+          </g>
+          <g class="part" style="--dx:-70">
+            <rect x="134" y="-30" width="196" height="60"/>
+            <rect class="hatch" x="160" y="-26" width="100" height="52"/>
+            <path class="fine" d="M146-30v60M154-30v60M270-30v60M300-30v60M310-30v60"/>
+            <rect class="knurl" x="276" y="-30" width="22" height="60"/>
+          </g>
+          <g class="part">
+            <rect x="330" y="-26" width="118" height="52"/>
+            <path class="fine" d="M336 0h6l8-18 8 36 8-36 8 36 8-36 8 36 8-36 8 36 8-36 8 36 8-18h4"/>
+            <rect class="red" x="448" y="-30" width="7" height="60" rx="2"/>
+          </g>
+          <g class="part" style="--dx:60">
+            <rect x="455" y="-24" width="105" height="48"/>
+            <path class="fine" d="M470-24v48M480-24v48M540-24v48"/>
+            <rect class="hatch" x="488" y="-20" width="44" height="40"/>
+          </g>
+          <g class="part" style="--dx:120">
+            <path d="M560-22h82l18 8v28l-18 8h-82z"/>
+            <path class="fine" d="M600-22v44M642-22v44"/>
+          </g>
+          <g class="part" style="--dx:190">
+            <path d="M660-9h90l25 6 7 3-7 3-25 6h-90z"/>
+            <rect class="red" x="702" y="-12" width="5" height="24" rx="1"/>
+            <path class="fine" d="M672-4h100M672 4h100"/>
+          </g>
+        </svg>
+        <div class="hero-foot">
+          <p>Seu motor perdeu força? Quase sempre o problema está onde ninguém vê. A gente abre, mede e só devolve a peça depois que ela passa na bancada.</p>
+          <a class="btn" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noreferrer">Pedir orçamento</a>
         </div>
       </div>
     </section>
 
-    <section class="section symptoms">
+    <div class="thermal" aria-hidden="true"></div>
+
+    <section class="section" id="sintomas">
       <div class="wrap two-col">
-        <h2>Sinais de que a injeção precisa de atenção</h2>
-        <ul class="plain-list">
-          <li>Perda de força, principalmente em subida ou carregado</li>
-          <li>Fumaça preta no escapamento</li>
-          <li>Partida demorada, ainda mais com o motor frio</li>
-          <li>Consumo de diesel acima do normal</li>
-          <li>Falhas ou trancos ao acelerar</li>
-        </ul>
+        <div class="symptoms-intro">
+          <h2>Tá dando algum desses sinais?</h2>
+          <p>Se reconheceu algum, mande o sintoma pelo WhatsApp. A gente diz se o problema é na injeção antes de você gastar com peça.</p>
+          <a class="btn ghost" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!%20Meu%20ve%C3%ADculo%20est%C3%A1%20com%20este%20sintoma%3A%20" target="_blank" rel="noreferrer">Mandar o sintoma</a>
+        </div>
+        <ol class="readout">
+          <li><span>01</span>Perde força na subida ou carregado</li>
+          <li><span>02</span>Solta fumaça preta</li>
+          <li><span>03</span>Demora pra pegar, ainda mais frio</li>
+          <li><span>04</span>Tá bebendo mais diesel que o normal</li>
+          <li><span>05</span>Falha ou dá tranco ao acelerar</li>
+        </ol>
       </div>
     </section>
 
     <section class="section alt" id="servicos">
       <div class="wrap">
-        <h2>O que move, por dentro.</h2>
-        <div class="services">
-          <article class="card">
-            <img src="assets/img/bancada.webp" width="800" height="533" alt="Bico injetor recuperado ao lado da embalagem" loading="lazy" style="object-position:88% center">
-            <div class="card-text"><h3>Bicos injetores</h3>
-            <p>Avaliação, recuperação e teste de vazão, vedação e pulverização. Common rail e mecânicos, linha leve e pesada.</p></div>
+        <h2>Só bomba e bico. <span class="muted">Por isso bem feito.</span></h2>
+        <div class="specs">
+          <article class="spec">
+            <img src="assets/img/bicos.webp" width="1400" height="933" alt="Três bicos injetores common rail recuperados na bancada, ao lado da caixa Cabral Diesel" loading="lazy" decoding="async">
+            <div>
+              <p class="code">BI-01</p>
+              <h3>Bicos injetores</h3>
+              <p>Avaliação, recuperação e teste. Common rail e mecânicos, linha leve e pesada.</p>
+              <ul class="checks"><li>Vazão</li><li>Vedação</li><li>Pulverização</li></ul>
+            </div>
           </article>
-          <article class="card">
-            <img src="assets/img/blueprint.webp" width="800" height="533" alt="Desenho técnico de bomba injetora" loading="lazy">
-            <div class="card-text"><h3>Bombas injetoras e de alta</h3>
-            <p>Recuperação com controle de pressão e calibração em bancada.</p></div>
-          </article>
-          <article class="card">
-            <img src="assets/img/termico.webp" width="800" height="566" alt="Leitura térmica do fluxo de combustível" loading="lazy">
-            <div class="card-text"><h3>Teste em bancada</h3>
-            <p>Medimos a peça antes de qualquer serviço. Você sabe o que precisa ser feito antes de aprovar o orçamento.</p></div>
+          <article class="spec">
+            <img src="assets/img/bomba.webp" width="1400" height="933" alt="Bomba de alta pressão sendo inspecionada na bancada" loading="lazy" decoding="async">
+            <div>
+              <p class="code">BI-02</p>
+              <h3>Bombas injetoras e de alta</h3>
+              <p>Recuperação com controle de pressão e calibração em bancada.</p>
+              <ul class="checks"><li>Pressão</li><li>Calibração</li><li>Débito</li></ul>
+            </div>
           </article>
         </div>
-        <p class="applications"><strong>Atendemos:</strong> picapes, vans e utilitários, caminhões, frotas e máquinas agrícolas.</p>
+        <p class="applications">Picapes · Vans e utilitários · Caminhões · Frotas · Máquinas agrícolas</p>
       </div>
     </section>
 
-    <section class="section" id="oficina">
+    <section class="section" id="bancada">
+      <div class="wrap">
+        <h2>Você aprova antes. <span class="muted">A peça só sai testada.</span></h2>
+        <ol class="sheet">
+          <li><span class="code">Etapa 1</span><h3>Avaliação</h3><p>A peça vai pra bancada antes de tudo. A gente mede e acha o problema.</p></li>
+          <li><span class="code">Etapa 2</span><h3>Orçamento</h3><p>Você recebe o que precisa ser feito e o prazo. Nada começa sem o seu ok.</p></li>
+          <li><span class="code">Etapa 3</span><h3>Recuperação e teste</h3><p>Recuperada, a peça volta pra bancada. Só sai se passar.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section alt" id="oficina">
       <div class="wrap two-col about">
-        <figure class="zoom"><img src="assets/img/fachada.webp" width="1000" height="666" alt="Fachada da oficina Cabral Diesel" loading="lazy"></figure>
+        <figure><img src="assets/img/fachada.webp" width="1000" height="666" alt="Fachada da oficina Cabral Diesel" loading="lazy"></figure>
         <div>
           <h2>Precisão de bancada. Confiança de família.</h2>
           <!-- TODO: história real da oficina (desde quando, quem fundou) -->
           <p>A Cabral Diesel é uma oficina de família, com [X] anos de trabalho em injeção diesel. Atendemos mecânicos, frotistas e motoristas que não podem ficar parados.</p>
-          <p>Nosso trabalho é só bomba e bico. Por isso cada peça recebe o tempo de bancada que precisa.</p>
-          <ol class="steps">
-            <li><b>Avaliação.</b> A peça é medida e o problema identificado.</li>
-            <li><b>Orçamento.</b> Você aprova antes de qualquer serviço.</li>
-            <li><b>Recuperação e teste.</b> A peça só sai depois de passar na bancada.</li>
-          </ol>
         </div>
       </div>
     </section>
 
-    <!-- TODO: liberar quando tiver depoimentos reais (Google, WhatsApp)
-    <section class="section light">
-      <div class="wrap">
-        <h2>Quem já trouxe a peça</h2>
-        <div class="quotes">
-          <blockquote><p>…</p><cite>Nome — veículo</cite></blockquote>
-        </div>
-      </div>
-    </section> -->
+    <!-- TODO: liberar quando tiver depoimentos reais (Google, WhatsApp) -->
 
-    <section class="section alt" id="duvidas">
+    <section class="section" id="duvidas">
       <div class="wrap two-col">
         <h2>Dúvidas comuns</h2>
         <div class="faq">
@@ -123,10 +179,10 @@
       </div>
     </section>
 
-    <section class="section contact" id="contato">
+    <section class="contact" id="contato">
       <div class="wrap two-col">
         <div>
-          <h2>Fale com a gente</h2>
+          <h2>Fale com a gente.</h2>
           <p>Mande o modelo, o ano e o sintoma do veículo. Respondemos pelo WhatsApp.</p>
           <a class="btn" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
         </div>
@@ -142,14 +198,13 @@
 
   <footer class="footer">
     <div class="wrap footer-in">
-      <img src="assets/img/logo.webp" alt="Cabral Diesel" width="72" height="32" loading="lazy">
-      <span>© 2026 Cabral Diesel · Bombas e bicos injetores</span>
+      <img src="assets/img/logo-cd.webp" alt="Cabral Diesel" width="113" height="32" loading="lazy">
+      <span>© 2026 Cabral Diesel</span>
     </div>
   </footer>
-  <script src="assets/js/site.js"></script>
 
-  <a class="wa-float" href="https://wa.me/5511994469964?text=Ol%C3%A1%2C%20Cabral%20Diesel!" target="_blank" rel="noreferrer" aria-label="Falar com a Cabral Diesel pelo WhatsApp">
-    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.030-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.070 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.57.93.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.440-9.43a9.37 9.37 0 0 1 6.67 2.77 9.37 9.370 0 0 1 2.76 6.67c0 5.2-4.24 9.43-9.44 9.43m8.03-17.46A11.27 11.27 0 0 0 12.05.71C5.8.71.7 5.8.7 12.05c0 2 .52 3.95 1.52 5.66L.6 23.6l6.02-1.58a11.34 11.34 0 0 0 5.42 1.38h.01c6.25 0 11.34-5.09 11.34-11.34 0-3.03-1.18-5.88-3.32-8.02"/></svg>
-  </a>
+  <script src="assets/js/site.js"></script>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+  <script type="module" src="assets/js/injector3d.js"></script>
 </body>
 </html>
