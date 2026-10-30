@@ -160,9 +160,10 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--branco);outline-of
   .symptoms-intro{position:static}
   .hero .tag{display:none}
   /* no celular a peça fica em pé atrás de todo o texto; apagada para não brigar com a leitura */
-  .hero-in>.injector-3d{opacity:.5}
+  .hero-in>.injector-3d{opacity:.5;bottom:auto;height:100vh} /* fundo do tamanho da tela, mesmo com o texto mais baixo */
+  .hero{overflow:clip}
   /* celular: texto segue o fluxo logo abaixo da navbar; a peça é só fundo, sem reservar espaço */
-  .hero-in{justify-content:flex-start;padding:112px 0 32px}
+  .hero-in{justify-content:flex-start;height:auto;min-height:0;padding:112px 0 56px} /* altura do conteúdo: sem sobra embaixo */
   .hero h1{font-size:clamp(3rem,13vw,4.5rem)}
   .hero-foot{flex-direction:column;align-items:flex-start}
   .spec{grid-template-columns:1fr}
