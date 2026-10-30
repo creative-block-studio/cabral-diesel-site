@@ -118,7 +118,7 @@ const fit = () => {
   const vhalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   // canvas ocupa a tela toda (nada corta); a peça vive numa faixa à direita: começa em 38% e vai até a borda
   const span = portrait ? 1 : .66, center = portrait ? .5 : .68;
-  const half = portrait ? 56 : 44; // meia-peça explodida, em unidades da cena
+  const half = portrait ? 44 : 44; // meia-peça explodida, em unidades da cena
   spread = portrait ? .45 : .6; // peça grande no desktop: explosão mais curta para caber
   // deitada: comprimento na horizontal; em pé: comprimento na vertical
   const along = half * Math.cos(tilt), across = half * Math.sin(tilt);
